@@ -1,0 +1,13 @@
+这个文件夹是把高清的图片进行修改label（entra-dural fat）, 将所有json文件归类，替换中文字符，然后用labelme2coco来进行转换。
+
+更新文档：
+对于医疗影像数据集的处理步骤如下
+1. 很多标记文件中的extra-dural-fat打成了entra-dural-fat, 在这里修正
+2. 将不同人的各个文件进行移动，把所有的图像放到一个文件夹，所有的json放到一个文件夹
+3. 将所有文件名中的中文替换成英文。这一步需要在py文件中配置中文和英文的转换关系
+4. 将没有图片的json和没有json的图片挑选出来，保证json文件夹和pic文件夹中的文件都能对应起来
+5. 将有未知label的json文件挑选出来。这一步需要在py文件中设置哪些是已知的label，同时对应的pic文件不会移动
+6. 按照每5个文件 train-test-val-train-test 的顺序分出训练集、测试集和验证集
+7. labelme2coco.py: 将train、test和val目录分别单独输入到程序中，生成对应的coco的json文件和可视化图像。但是这个可视化图像好像对于相同的标签也会用不同的颜色标记。
+第7步转换过程建议在linux环境下进行。
+最后建议把三个output_dir合并一下，所有的图片放到output_dir/JPEGImages下，三个标签文件分别改名为output_dir/train.json, output_dir/test.json, output_dir/val.json.
